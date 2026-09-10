@@ -202,13 +202,33 @@ footer {
   cursor: pointer;
 }
 
+.table-responsive {
+  overflow-x: auto;
+}
+
 /* ===== Responsive Breakpoints ===== */
 
 /* Tablet ke bawah */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   main section:nth-of-type(2) {
     grid-template-columns: repeat(2, 1fr);
   }
+} */
+
+/* Soal no 2 */
+@media (max-width: 900px) {
+  main section:nth-of-type(2) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+pre {
+  overflow-x: auto;
+  background-color: #ffffff;
+  color: #010101;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: Consolas, Monaco, monospace;
 }
 
 /* Mobile */
@@ -244,5 +264,11 @@ footer {
   form input,
   form select {
     max-width: 100%;
+  }
+}
+
+@media (min-width: 1400px) {
+  main {
+    max-width: 1200px;
   }
 }
