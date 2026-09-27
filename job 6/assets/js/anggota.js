@@ -45,4 +45,13 @@ async function muatDaftarAnggota() {
   }
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  muatDataGenerik("../data/anggota.json", [
+    "no_anggota",
+    "nama",
+    "alamat",
+    "no_hp",
+  ]);
+});
+
 document.addEventListener("DOMContentLoaded", muatDaftarAnggota);

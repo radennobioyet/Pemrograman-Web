@@ -3,11 +3,13 @@ function initNavToggle() {
   const toggleBtn = document.getElementById("nav-toggle-btn");
   const nav = document.querySelector("header nav");
   if (!toggleBtn || !nav) return;
+
   toggleBtn.addEventListener("click", function () {
     nav.classList.toggle("nav-open");
   });
 }
 
+// ===== Konfirmasi hapus (front-end only, belum ke server) =====
 // Memakai event delegation di document karena baris tabel sekarang
 // dirender dinamis via fetch (lihat buku.js/anggota.js) sehingga
 // tombol .btn-hapus belum tentu ada saat DOMContentLoaded.
@@ -15,6 +17,7 @@ function initHapusConfirm() {
   document.addEventListener("click", function (e) {
     const btn = e.target.closest(".btn-hapus");
     if (!btn) return;
+
     const row = btn.closest("tr");
     const nama = row ? row.querySelector("td")?.textContent : "data ini";
     const yakin = confirm('Yakin ingin menghapus "' + nama + '"?');
@@ -28,13 +31,11 @@ function initHapusConfirm() {
 function initTableFilter() {
   const input = document.getElementById("search-input");
   const table = document.querySelector(".table-responsive table");
-
   if (!input || !table) return;
 
   input.addEventListener("keyup", function () {
     const keyword = input.value.toLowerCase();
     const rows = table.querySelectorAll("tbody tr");
-
     rows.forEach(function (row) {
       const teks = row.textContent.toLowerCase();
       row.style.display = teks.includes(keyword) ? "" : "none";
@@ -103,79 +104,10 @@ function initValidasiForm() {
       }
     }
 
-    // Latihan Soal No. 1
-    // Validasi field ISBN (opsional, tetapi jika diisi hanya boleh angka dan tanda hubung)
-    const isbn = form.querySelector("[name='isbn']");
-    if (isbn && isbn.value.trim() !== "") {
-      const polaIsbn = /^[0-9-]+$/;
-      if (!polaIsbn.test(isbn.value.trim())) {
-        tampilkanError(
-          isbn,
-          "ISBN hanya boleh berisi angka dan tanda hubung (-).",
-        );
-        valid = false;
-      } else {
-        hapusError(isbn);
-      }
-    } else if (isbn) {
-      hapusError(isbn);
-    }
-
     if (!valid) {
       e.preventDefault();
     }
   });
-}
-
-async function muatDataGenerik(urlJSON, daftarKunci) {
-  const tbody = document.querySelector(".table-responsive table tbody");
-  const loading = document.getElementById("loading-indicator");
-
-  if (!tbody) return;
-
-  loading.style.display = "block";
-  tbody.innerHTML = "";
-
-  try {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    const res = await fetch(urlJSON);
-    if (!res.ok) {
-      throw new Error("Gagal mengambil data (status " + res.status + ")");
-    }
-
-    const dataArray = await res.json();
-
-    dataArray.forEach(function (item) {
-      const tr = document.createElement("tr");
-      let barisHtml = "";
-
-      // Mengulang array kunci untuk menyisipkan data dinamis ke dalam <td>
-      daftarKunci.forEach(function (kunci) {
-        barisHtml += "<td>" + item[kunci] + "</td>";
-      });
-
-      // Menyisipkan kolom Aksi statis di akhir baris
-      barisHtml +=
-        "<td>" +
-        '<button type="button">Edit</button> ' +
-        '<button type="button" class="btn-hapus">Hapus</button>' +
-        "</td>";
-
-      tr.innerHTML = barisHtml;
-      tbody.appendChild(tr);
-    });
-  } catch (err) {
-    const totalKolom = daftarKunci.length + 1;
-    tbody.innerHTML =
-      '<tr><td colspan="' +
-      totalKolom +
-      '">Gagal memuat data: ' +
-      err.message +
-      "</td></tr>";
-  } finally {
-    loading.style.display = "none";
-  }
 }
 
 document.addEventListener("DOMContentLoaded", function () {

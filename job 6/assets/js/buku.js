@@ -47,4 +47,14 @@ async function muatDaftarBuku() {
   }
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  muatDataGenerik("../data/buku.json", [
+    "judul",
+    "pengarang",
+    "kategori",
+    "tahun",
+    "stok",
+  ]);
+});
+
 document.addEventListener("DOMContentLoaded", muatDaftarBuku);

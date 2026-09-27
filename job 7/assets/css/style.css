@@ -265,7 +265,7 @@ footer {
       opacity 0.25s ease,
       margin-top 0.35s ease;
   }
-  
+
   header nav.nav-open {
     max-height: 250px;
     opacity: 1;
