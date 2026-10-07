@@ -31,6 +31,20 @@ $_SESSION['anggota'][] = [
     'no_hp' => $noHp,
 ];
 
+// Validasi Alamat (Wajib Isi)
+if ($alamat === '') {
+    $errors[] = "Alamat wajib diisi.";
+}
+
+// Validasi Nomor HP (Opsional, Angka, Batas Digit)
+if ($noHp !== '') {
+    if (!is_numeric($noHp)) {
+        $errors[] = "Nomor telepon hanya boleh berisi angka.";
+    } elseif (strlen($noHp) < 10 || strlen($noHp) > 14) {
+        $errors[] = "Nomor telepon harus memiliki panjang 10 hingga 14 digit.";
+    }
+}
+
 $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Anggota berhasil ditambahkan.'];
 header('Location: list.php');
 exit;
