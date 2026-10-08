@@ -52,3 +52,21 @@ try {
     header('Location: tambah.php');
     exit;
 }
+
+try {
+    $stmt->execute([
+        'nama' => $nama,
+        'no_anggota' => $no_anggota,
+        'alamat' => $alamat,
+        'no_hp' => $no_hp
+    ]);
+
+    $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Anggota berhasil ditambahkan.'];
+    header('Location: list.php');
+    exit;
+
+} catch (PDOException $e) {
+    $_SESSION['flash'] = ['type' => 'danger', 'pesan' => 'No. Anggota sudah dipakai, gunakan nomor lain.'];
+    header('Location: tambah.php');
+    exit;
+}

@@ -39,6 +39,8 @@ $daftarBuku = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <th>Judul</th>
                         <th>Pengarang</th>
                         <th>Tahun</th>
+                        <th>Tanggal Ditambahkan</th>
+                        <!-- Pada bagian <thead> -->
                         <th>Stok</th>
                         <th>Tanggal Ditambahkan</th>
                         <th>Aksi</th>
@@ -55,6 +57,8 @@ $daftarBuku = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?php echo $buku['judul']; ?></td>
                             <td><?php echo $buku['pengarang']; ?></td>
                             <td><?php echo $buku['tahun']; ?></td>
+                            <td><?php echo $buku['tanggal_ditambahkan']; ?></td>
+                            <!-- Pada bagian <tbody> di dalam foreach -->
                             <td><?php echo $buku['stok']; ?></td>
                             <td><?php echo $buku['tanggal_ditambahkan'] ? date('d-m-Y H:i', strtotime($buku['tanggal_ditambahkan'])) : '-'; ?></td>
                             <td>
